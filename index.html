@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+  <link href="style.css" rel="stylesheet" />
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="script.js"></script>
+</head>
+
+<body ng-controller="myCtrl">
+
+  <div>
+    {{reason}}
+  </div>
+
+  <input type="submit" value="Load" ng-click="load()">
+  <select ng-model="person" ng-options="person.login for person in persons | orderBy:'login'" ng-change="search()"></select>
+  <input type="text" ng-model="personLogin" >
+  <input type="button" value="Search" ng-click="searchByName()" >
+  <div ng-show="person" >
+    Order By :
+    <select ng-model="sortingValue">
+      <option value="size">Size Asceding</option>
+      <option value="-size">Size Desceding</option>
+      <option value="name">Repo Name</option>
+    </select>
+
+    <table>
+      <thead>
+        <tr>
+          <td>Repo Name</td>
+          <td>Repo Size</td>
+        </tr>
+      </thead>
+      <tbody ng-repeat="repo in repos | orderBy:sortingValue">
+        <tr>
+          <td><a href="{{repo.svn_url}}" target="_blank">{{repo.name}}</a></td>
+          <td>{{repo.size | number}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
